@@ -1,0 +1,29 @@
+# Compiled Outut 
+build/ 
+*.exe 
+*.out 
+*.o
+*.obj
+
+# Debug and coverage output 
+*.pdb
+*.gcda
+*.gcno
+*.gcov 
+
+# Editors and Operating Systems 
+.vscode/
+.idea
+.DS_Store
+Thumbs.db
+
+# Python and Notebooks 
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Secrets and local configuration 
+.env 
+.env.*
+*.key 
+*.pem 
