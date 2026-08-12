@@ -10,9 +10,10 @@ This workspace is the source of truth for the daily C practice program. The work
 
 1. Read [`ROADMAP.md`](ROADMAP.md) for the eight-week progression.
 2. Open [`WEEK_01.md`](WEEK_01.md) for the current week's daily breakdown.
-3. Do the day's work in `src/`, `include/`, and `tests/`.
-4. Copy [`daily-logs/TEMPLATE.md`](daily-logs/TEMPLATE.md) to a dated file and complete it after the session.
-5. Send the completed summary to the agent. The verified result will be used to adjust the next task without assuming uncompleted work.
+3. Use [`GIT_COMMANDS.md`](GIT_COMMANDS.md) for the safe daily Git workflow and command reference.
+4. Do the day's work in `src/`, `include/`, and `tests/`.
+5. Copy [`daily-logs/TEMPLATE.md`](daily-logs/TEMPLATE.md) to a dated file and complete it after the session.
+6. Send the completed summary to the agent. The verified result will be used to adjust the next task without assuming uncompleted work.
 
 ## Directory layout
 
@@ -22,6 +23,7 @@ c-edge-ai-practice/
 |-- ROADMAP.md
 |-- WEEK_01.md
 |-- PROGRESS.md
+|-- GIT_COMMANDS.md
 |-- include/       Public C headers
 |-- src/           C implementations and small programs
 |-- tests/         Unit and regression tests
@@ -46,4 +48,3 @@ cc -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -Werror \
 ```
 
 Adjust the source list as the project grows. A build system will be introduced deliberately during the program.
-
