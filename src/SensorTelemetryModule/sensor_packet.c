@@ -21,6 +21,38 @@ const char *sensor_error_to_string(SensorError error)
     }
 }
 
+void sensor_data_print(const SensorData *sensor)
+{
+    if (sensor == NULL){
+        return;
+    }
+
+    printf(
+        "ADC Value: %u, Status: 0x%02X\n",
+        (unsigned int)sensor->adc_value,
+        (unsigned int)sensor->status
+    );
+}
+
+static SensorError validate_sensor_findings(
+    uint8_t status,
+    uint16_t adc_value
+)
+{
+
+    if (status > SENSOR_STATUS_MAX){
+        return SENSOR_ERROR_INVALID_STATUS;
+    }
+
+    if (adc_value > SENSOR_ADC_MAX){
+        return SENSOR_ERROR_INVALID_ADC;
+    }
+
+    else{
+        return SENSOR_OK;
+    }
+}
+
 SensorError sensor_packet_encode(
     uint8_t status,
     uint16_t adc_value,
@@ -32,13 +64,12 @@ SensorError sensor_packet_encode(
         return SENSOR_ERROR_NULL; 
     }
 
-    if ( adc_value > SENSOR_ADC_MAX){
-        return SENSOR_ERROR_INVALID_ADC;
-    }
+   SensorError error =  validate_sensor_findings(status, adc_value); 
 
-    if (status > SENSOR_STATUS_MAX){
-        return SENSOR_ERROR_INVALID_STATUS;
-    } 
+    if (error != SENSOR_OK)
+    {
+        return error;
+    }
 
     
     // Step 1: mask + shift applied to adc_value to allow 
@@ -50,7 +81,7 @@ SensorError sensor_packet_encode(
 
     *packet =  shifted_status | masked_adc;
 
-    return SENSOR_OK; 
+    return error; 
 }
 
 SensorData sensor_packet_decode(
@@ -59,7 +90,7 @@ SensorData sensor_packet_decode(
 {
     SensorData sensor = {
         .adc_value = sensor_packet & SENSOR_ADC_MASK,
-        .status = (uint8_t)((sensor_packet << SENSOR_STATUS_SHIFT>>) 
+        .status = (uint8_t)((sensor_packet >> SENSOR_STATUS_SHIFT) 
                    & SENSOR_STATUS_MASK)
     };
 
