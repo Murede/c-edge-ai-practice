@@ -302,12 +302,6 @@ const char *sensor_driver_error_to_string(
         case SENSOR_DRIVER_ERROR_NOT_READY:
             return "SENSOR_DRIVER_ERROR_NOT_READY";
 
-        case SENSOR_DRIVER_ERROR_BUSY:
-            return "SENSOR_DRIVER_ERROR_BUSY";
-
-        case SENSOR_DRIVER_ERROR_HARDWARE:
-            return "SENSOR_DRIVER_ERROR_HARDWARE";
-
         default:
             return "UNKNOWN_SENSOR_DRIVER_ERROR";
     }

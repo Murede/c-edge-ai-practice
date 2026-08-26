@@ -153,14 +153,7 @@ typedef enum
     SENSOR_DRIVER_ERROR_NULL,
 
     // The requested operation requires the sensor to be ready/enabled.
-    SENSOR_DRIVER_ERROR_NOT_READY,
-
-    // The peripheral is currently busy.
-    SENSOR_DRIVER_ERROR_BUSY,
-
-    // Hardware reported a peripheral-level fault.
-    SENSOR_DRIVER_ERROR_HARDWARE
-
+    SENSOR_DRIVER_ERROR_NOT_READY
 } SensorDriverError;
 
 
