@@ -16,6 +16,8 @@
  * rather than directly modifying hardware-style registers.
  */
 
+#include <stddef.h>
+
 #include "sensor_driver.h"
 
 

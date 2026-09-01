@@ -1,3 +1,5 @@
+#include <stddef.h>
+
 #include "event_dispatcher.h"
 
 /*Private Callback Table*/
