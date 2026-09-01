@@ -32,6 +32,8 @@
  * shifts, and clean C module interfaces.
  */
 
+#include <stddef.h>
+
 #include "status_register.h"
 
 
