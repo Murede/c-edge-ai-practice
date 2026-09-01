@@ -1,0 +1,65 @@
+name: C module tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Compile and run modules
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build
+
+          flags=(
+            -std=c11
+            -Wall
+            -Wextra
+            -Wpedantic
+            -Wconversion
+            -Wshadow
+            -Werror
+          )
+
+          build_and_run() {
+            local name="$1"
+            shift
+            echo "::group::${name}"
+            gcc "${flags[@]}" "$@" -o "build/${name}"
+            "./build/${name}"
+            echo "::endgroup::"
+          }
+
+          build_and_run adc_sensor_processing \
+            src/ADCSensorProcessingModule/main.c \
+            src/ADCSensorProcessingModule/sensor.c
+
+          build_and_run motor_controller \
+            src/MotorControllerStateMachine/main.c \
+            src/MotorControllerStateMachine/motor.c
+
+          build_and_run sensor_telemetry \
+            src/SensorTelemetryModule/main.c \
+            src/SensorTelemetryModule/sensor_packet.c \
+            src/SensorTelemetryModule/status_register.c
+
+          build_and_run memory_mapped_driver \
+            src/MemoryMappedPeripheralDriver/main.c \
+            src/MemoryMappedPeripheralDriver/sensor_driver.c
+
+          build_and_run event_dispatcher \
+            src/SensorEventDispatcher/main.c \
+            src/SensorEventDispatcher/event_dispatcher.c
